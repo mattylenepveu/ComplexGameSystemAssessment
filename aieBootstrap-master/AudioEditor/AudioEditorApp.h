@@ -1,6 +1,7 @@
 #pragma once
 #include "Application.h"
 #include "Renderer2D.h"
+#include "Imgui.h"
 
 class AudioEditorApp : public aie::Application 
 {
@@ -18,4 +19,5 @@ public:
 
 protected:
 	aie::Renderer2D* m_2dRenderer;
+	ImVec2 boxSize;
 };

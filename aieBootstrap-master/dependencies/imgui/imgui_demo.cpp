@@ -1806,7 +1806,7 @@ static void ShowExampleMenuFile()
         ImGui::MenuItem("Enabled", "", &enabled);
         ImGui::BeginChild("child", ImVec2(0, 60), true);
         for (int i = 0; i < 10; i++)
-            ImGui::Text("Scrolling Text %d", i);
+            ImGui::("Scrolling Text %d", i);
         ImGui::EndChild();
         static float f = 0.5f;
         static int n = 0;
