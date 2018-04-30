@@ -2,17 +2,31 @@
 
 Window::Window()
 {
+	// Initializes the Audio Manager pointer
+	audioManager = new AudioManager();
+
+	// Boots up the FMOD system
+	audioManager->Create();
+
+	// Loads audio from the audio manager
+	audioManager->LoadAudio("../bin/audio/background_music.ogg");
+
 	boxSize = ImVec2(90, 90);
 }
 
 Window::~Window()
 {
+	audioManager->Destroy();
+	delete audioManager;
 }
 
-bool Window::ConsoleWindow(char* filename, bool open)
+void Window::UpdateWindow(char* filename, bool open)
 {
 	ImGui::SetNextWindowSize(ImVec2(900.0f, 500.0f));
 	ImGui::Begin(filename, &open, ImGuiWindowFlags_NoResize);
+
+	// Updates the Audio Manager every frame
+	audioManager->UpdateAudio();
 
 	ImGui::BeginMenuBar();
 
@@ -39,15 +53,37 @@ bool Window::ConsoleWindow(char* filename, bool open)
 	}
 
 	ImGui::Indent(300.0f);
-	ImGui::Button("PAUSE", ImVec2(50, 20));
+	bool bPause = ImGui::Button("PAUSE", ImVec2(50, 20));
+
+	ToolTip("Pauses the audio when the audio is playing");
+
+	if (bPause)
+	{
+		audioManager->PauseAudio();
+	}
 
 	ImGui::SameLine();
 	ImGui::Indent(100.0f);
-	ImGui::Button("PLAY", ImVec2(50, 20));
+	bool bPlay = ImGui::Button("PLAY", ImVec2(50, 20));
+
+	ToolTip("Plays the audio if the audio isn't already playing");
+
+	if (bPlay)
+	{
+		// Plays the audio from the audio manager
+		audioManager->PlayAudio();
+	}
 
 	ImGui::SameLine();
 	ImGui::Indent(100.0f);
-	ImGui::Button("STOP", ImVec2(50, 20));
+	bool bStop = ImGui::Button("STOP", ImVec2(50, 20));
+
+	ToolTip("Stops the audio and resets audio time back to the start");
+
+	if (bStop)
+	{
+		audioManager->StopAudio();
+	}
 
 	ImGui::Unindent(513.0f);
 	verticalSpacing = 5;
@@ -59,7 +95,7 @@ bool Window::ConsoleWindow(char* filename, bool open)
 	ImGui::Indent(120.0f);
 	ImGui::TextWrapped("FREQUENCY"),
 
-		ImGui::SameLine();
+	ImGui::SameLine();
 	ImGui::Indent(300.0f);
 	ImGui::TextWrapped("PITCH");
 
@@ -101,91 +137,15 @@ bool Window::ConsoleWindow(char* filename, bool open)
 	ImGui::ListBoxFooter();
 
 	ImGui::End();
-
-	return false;
 }
 
-//--------------------------------------------------------------------------------
-// https://github.com/mellinoe/synthapp/blob/master/src/synthapp/Widgets/FilePicker.cs
-//--------------------------------------------------------------------------------
-
-//bool Window::DrawFolder(char* selected, bool returnOnSelection = false)
-//{
-//	ImGui::Text("Current Folder: " + *(CurrentFolder));
-//	bool result = false;
-//
-//	if (ImGui::BeginChildFrame(1, ImVec2(0, 600), 0))
-//	{
-//		DirectoryInfo di = new DirectoryInfo(CurrentFolder);
-//		if (di.Exists)
-//		{
-//			if (di.Parent != null)
-//			{
-//				ImGui.PushStyleColor(ColorTarget.Text, RgbaFloat.Yellow.ToVector4());
-//				if (ImGui.Selectable("../", false, SelectableFlags.DontClosePopups))
-//				{
-//					CurrentFolder = di.Parent.FullName;
-//				}
-//				ImGui.PopStyleColor();
-//			}
-//
-//			foreach(var fse in Directory.EnumerateFileSystemEntries(di.FullName))
-//			{
-//				if (Directory.Exists(fse))
-//				{
-//					string name = Path.GetFileName(fse);
-//					ImGui.PushStyleColor(ColorTarget.Text, RgbaFloat.Yellow.ToVector4());
-//					if (ImGui.Selectable(name + "/", false, SelectableFlags.DontClosePopups))
-//					{
-//						CurrentFolder = fse;
-//					}
-//					ImGui.PopStyleColor();
-//				}
-//				else
-//				{
-//					string name = Path.GetFileName(fse);
-//					bool isSelected = SelectedFile == fse;
-//					if (ImGui.Selectable(name, isSelected, SelectableFlags.DontClosePopups))
-//					{
-//						SelectedFile = fse;
-//						if (returnOnSelection)
-//						{
-//							result = true;
-//							selected = SelectedFile;
-//						}
-//					}
-//					if (ImGui.IsMouseDoubleClicked(0))
-//					{
-//						result = true;
-//						selected = SelectedFile;
-//						ImGui.CloseCurrentPopup();
-//					}
-//				}
-//			}
-//		}
-//
-//	}
-//	ImGui::EndChildFrame();
-//
-//	if (ImGui.Button("Cancel"))
-//	{
-//		result = false;
-//		ImGui.CloseCurrentPopup();
-//	}
-//
-//	if (SelectedFile != null)
-//	{
-//		ImGui.SameLine();
-//		if (ImGui.Button("Open"))
-//		{
-//			result = true;
-//			selected = SelectedFile;
-//			ImGui.CloseCurrentPopup();
-//		}
-//	}
-//
-//	return result;
-//}
+void Window::ToolTip(char* pToolTip)
+{
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::SetTooltip(pToolTip);
+	}
+}
 
 void Window::SetCurrentFolder(char* pCurrentFolder)
 {

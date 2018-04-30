@@ -20,14 +20,6 @@ bool AudioEditorApp::startup()
 
 	window = new Window();
 
-	audioManager = new AudioManager();
-
-	// Boots up the FMOD system
-	audioManager->SystemStart();
-
-	// Loads a sound from the audio manager
-	audioManager->LoadSound();
-
 	return true;
 }
 
@@ -43,7 +35,7 @@ void AudioEditorApp::update(float deltaTime)
 	aie::Input* input = aie::Input::getInstance();
 
 	// Opens up the ImGui window
-	window->ConsoleWindow("New Project", true);
+	window->UpdateWindow("New Project", true);
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))

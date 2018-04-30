@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Window.h"
-#include "AudioManager.h"
+//#include "AudioManager.h"
 
 class AudioEditorApp : public aie::Application 
 {
@@ -20,5 +20,4 @@ protected:
 	aie::Renderer2D* m_2dRenderer;
 
 	Window* window;
-	AudioManager* audioManager;
 };
