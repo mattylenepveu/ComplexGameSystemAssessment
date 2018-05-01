@@ -18,8 +18,10 @@ public:
 	void PlayAudio();
 	void StopAudio();
 
-	void AdjustFrequency(float fFrequency);
 	void AdjustPitch(float fPitch);
+	void AdjustVolume(float fVolume);
+
+	void ReleaseSound();
 
 private:
 	FMOD::System* m_pSystem;

@@ -26,9 +26,7 @@ bool AudioManager::Create()
 
 	result = m_pSystem->init(512, FMOD_INIT_NORMAL, 0);
 
-	m_pSystem->getChannel(0, &m_pChannel);
-
-	m_pChannelGroup->getChannel(0, &m_pChannel);
+	m_pSystem->createChannelGroup("MyChannelGroup", &m_pChannelGroup);
 
 	// Initialize FMOD with 512 channels
 	if (result != FMOD_OK)
@@ -49,15 +47,11 @@ void AudioManager::Destroy()
 void AudioManager::UpdateAudio()
 {
 	m_pSystem->update();
-	float* p1 =0;
-	m_pChannel->setPitch(0.5f);
-	m_pChannel->getPitch(p1);
-	std::cout << p1 << std::endl;
 }
 
 void AudioManager::LoadAudio(const char* pAudioName)
 {
-	result = m_pSystem->createSound(pAudioName, FMOD_DEFAULT, 0, &m_pSound);
+	result = m_pSystem->createSound(pAudioName, FMOD_LOOP_NORMAL, 0, &m_pSound);
 }
 
 void AudioManager::PauseAudio()
@@ -82,7 +76,7 @@ void AudioManager::PlayAudio()
 		}
 		else
 		{
-			result = m_pSystem->playSound(m_pSound, 0, false, &m_pChannel);
+			result = m_pSystem->playSound(m_pSound, m_pChannelGroup, false, &m_pChannel);
 			m_bIsPlaying = true;
 		}
 	}
@@ -102,12 +96,17 @@ void AudioManager::StopAudio()
 	}
 }
 
-void AudioManager::AdjustFrequency(float fFrequency)
-{
-	m_pChannel->setFrequency(fFrequency);
-}
-
 void AudioManager::AdjustPitch(float fPitch)
 {
-	m_pChannel->setPitch(fPitch);
+	m_pChannelGroup->setPitch(fPitch);
+}
+
+void AudioManager::AdjustVolume(float fVolume)
+{
+	m_pChannelGroup->setVolume(fVolume);
+}
+
+void AudioManager::ReleaseSound()
+{
+	m_pSound->release();
 }

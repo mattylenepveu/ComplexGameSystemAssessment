@@ -9,14 +9,22 @@ public:
 	~Window();
 
 	void UpdateWindow(char* filename, bool open);
-	void ToolTip(char* pToolTip);
 
-	void SetCurrentFolder(char* CurrentFolder);
-	char* GetCurrentFolder();
+	void LoadSound();
+	void ToolTip(char* pToolTip);
+	void AdjustSound();
 
 private:
-	AudioManager * audioManager;
+	AudioManager* audioManager;
 	ImVec2 boxSize;
-	char* CurrentFolder;
-};
+	ImVec2 buttonSize;
 
+	char* m_chBuf;
+	char* m_chFileDir;
+
+	bool m_bMuted;
+	bool m_bLoad;
+
+	bool m_abPitch[5];
+	bool m_abVol[5];
+};
