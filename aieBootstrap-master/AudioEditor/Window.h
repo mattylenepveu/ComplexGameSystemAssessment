@@ -10,7 +10,9 @@ public:
 
 	void UpdateWindow(char* filename, bool open);
 
+	bool NewProject();
 	void LoadSound();
+
 	void ToolTip(char* pToolTip);
 	void AdjustSound();
 
@@ -24,6 +26,8 @@ private:
 
 	bool m_bMuted;
 	bool m_bLoad;
+	bool m_bLoaded;
+	bool m_bPlaying;
 
 	bool m_abPitch[5];
 	bool m_abVol[5];

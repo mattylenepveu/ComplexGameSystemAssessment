@@ -17,7 +17,5 @@ public:
 	virtual void draw();
 
 protected:
-	aie::Renderer2D* m_2dRenderer;
-
-	Window* window;
+	Window* firstWindow;
 };

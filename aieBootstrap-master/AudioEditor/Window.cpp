@@ -29,6 +29,8 @@ Window::Window()
 
 	m_bMuted = false;
 	m_bLoad = false;
+	m_bLoaded = false;
+	m_bPlaying = false;
 
 	for (int i = 0; i < 5; ++i)
 	{
@@ -65,17 +67,22 @@ void Window::UpdateWindow(char* filename, bool open)
 
 	if (ImGui::BeginMenu("File"))
 	{
-		ImGui::MenuItem("New Project");
+		if (ImGui::MenuItem("New Project"))
+		{
+			// Load a New Project
+		}
 
 		if (ImGui::MenuItem("Load Audio"))
 		{
+			if (m_bPlaying)
+			{
+				audioManager->StopAudio();
+				m_bPlaying = false;
+			}
+
 			m_bLoad = true;
 		}
 
-		bool result = false;
-
-		ImGui::MenuItem("Save Audio");
-		ImGui::MenuItem("Save Audio As");
 		ImGui::EndMenu();
 	}
 
@@ -102,6 +109,7 @@ void Window::UpdateWindow(char* filename, bool open)
 
 	if (bPause)
 	{
+		m_bPlaying = false;
 		audioManager->PauseAudio();
 	}
 
@@ -109,10 +117,12 @@ void Window::UpdateWindow(char* filename, bool open)
 	ImGui::Indent(100.0f);
 	bool bPlay = ImGui::Button("PLAY", buttonSize);
 
-	ToolTip("Plays the audio if the audio isn't already playing");
+	ToolTip("Plays the audio if the audio isn't already playing and records the audio");
 
-	if (bPlay)
+	if (bPlay && m_bLoaded)
 	{
+		m_bPlaying = true;
+
 		// Plays the audio from the audio manager
 		audioManager->PlayAudio();
 	}
@@ -125,11 +135,24 @@ void Window::UpdateWindow(char* filename, bool open)
 
 	if (bStop)
 	{
+		m_bPlaying = false;
 		audioManager->StopAudio();
 	}
 
 	ImGui::Unindent(513.0f);
-	verticalSpacing = 5;
+
+	if (m_bPlaying)
+	{
+		verticalSpacing = 4;
+		ImGui::Indent(375.0f);
+		ImGui::Text("Song now playing...");
+		ImGui::Unindent(375.0f);
+	}
+	else
+	{
+		verticalSpacing = 8;
+	}
+	
 	for (int i = 0; i < verticalSpacing; ++i)
 	{
 		ImGui::Spacing();
@@ -179,7 +202,7 @@ void Window::UpdateWindow(char* filename, bool open)
 	}
 
 	ImGui::Unindent(420.0F);
-	verticalSpacing = 5;
+	verticalSpacing = 2;
 	for (int i = 0; i < verticalSpacing; ++i)
 	{
 		ImGui::Spacing();
@@ -210,6 +233,7 @@ void Window::LoadSound()
 		}
 
 		m_bLoad = false;
+		m_bLoaded = true;
 	}
 }
 

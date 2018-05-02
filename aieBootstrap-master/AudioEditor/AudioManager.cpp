@@ -77,7 +77,8 @@ void AudioManager::PlayAudio()
 		else
 		{
 			result = m_pSystem->playSound(m_pSound, m_pChannelGroup, false, &m_pChannel);
-			m_bIsPlaying = true;
+			result = m_pSystem->recordStart(0, m_pSound, false);
+			m_bIsPlaying = true;  
 		}
 	}
 }
@@ -86,6 +87,7 @@ void AudioManager::StopAudio()
 {
 	if (m_bIsPlaying)
 	{
+		result = m_pSystem->recordStop(0);
 		m_pChannel->setPaused(true);
 		m_bIsPlaying = false;
 	}

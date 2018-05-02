@@ -16,17 +16,14 @@ bool AudioEditorApp::startup()
 {
 	setBackgroundColour(0.1f, 0.1f, 0.1f, 1.0f);
 
-	m_2dRenderer = new aie::Renderer2D();
-
-	window = new Window();
+	firstWindow = new Window();
 
 	return true;
 }
 
 void AudioEditorApp::shutdown() 
 {
-	delete m_2dRenderer;
-	delete window;
+	delete firstWindow;
 }
 
 void AudioEditorApp::update(float deltaTime) 
@@ -35,7 +32,7 @@ void AudioEditorApp::update(float deltaTime)
 	aie::Input* input = aie::Input::getInstance();
 
 	// Opens up the ImGui window
-	window->UpdateWindow("New Project", true);
+	firstWindow->UpdateWindow("New Project", true);
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -48,10 +45,4 @@ void AudioEditorApp::draw()
 {
 	// wipe the screen to the background colour
 	clearScreen();
-
-	// begin drawing sprites
-	m_2dRenderer->begin();
-
-	// done drawing sprites
-	m_2dRenderer->end();
 }
