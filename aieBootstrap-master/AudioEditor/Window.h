@@ -6,7 +6,7 @@
 #include "Renderer2D.h"
 
 //--------------------------------------------------------------------------------
-// Window class draws and updates the ImGui window that the application will use.
+// Window class draws and updates ImGui window that the application will use.
 //--------------------------------------------------------------------------------
 class Window
 {

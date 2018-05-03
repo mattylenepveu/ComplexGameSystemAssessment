@@ -1,17 +1,26 @@
+// Include(s)
 #include "AudioEditorApp.h"
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
 #include "Imgui.h"
 
-AudioEditorApp::AudioEditorApp() {
+//--------------------------------------------------------------------------------
+// Default Constructor (Not Being Used).
+//--------------------------------------------------------------------------------
+AudioEditorApp::AudioEditorApp() {}
 
-}
+//--------------------------------------------------------------------------------
+// Default Constructor (Not Being Used).
+//--------------------------------------------------------------------------------
+AudioEditorApp::~AudioEditorApp() {}
 
-AudioEditorApp::~AudioEditorApp() {
-
-}
-
+//--------------------------------------------------------------------------------
+// Acts as the AudioEditorApp's constructor by initialising values.
+//
+// Return:
+//		Returns a bool indicating if everything has been created properly.
+//--------------------------------------------------------------------------------
 bool AudioEditorApp::startup()
 {
 	setBackgroundColour(0.1f, 0.1f, 0.1f, 1.0f);
@@ -21,11 +30,20 @@ bool AudioEditorApp::startup()
 	return true;
 }
 
+//--------------------------------------------------------------------------------
+// Acts as the AudioEditorApp's Destructor by deleting value's from the heap.
+//--------------------------------------------------------------------------------
 void AudioEditorApp::shutdown()
 {
 	delete m_pWindow;
 }
 
+//--------------------------------------------------------------------------------
+// Updates the application every frame it runs for.
+//
+// Param:
+//		Returns a bool indicating if everything has been created properly.
+//--------------------------------------------------------------------------------
 void AudioEditorApp::update(float fDeltaTime)
 {
 	// input example
@@ -41,6 +59,9 @@ void AudioEditorApp::update(float fDeltaTime)
 	}
 }
 
+//--------------------------------------------------------------------------------
+// Draws the application every frame the class runs for.
+//--------------------------------------------------------------------------------
 void AudioEditorApp::draw()
 {
 	// wipe the screen to the background colour

@@ -1,45 +1,60 @@
+// Include(s)
 #include "Window.h"
 #include "Texture.h"
 #include <iostream>
 
+// Const floats represent the pitch adjustments the user can make with pitch list
 static const float VLPITCH = 0.5f;
 static const float LPITCH = 0.75f;
 static const float APITCH = 1.0f;
-static const float HPITCH = 1.25f;
+static const float HPITCH = 1.1f;
 static const float VHPITCH = 1.5f;
 
+// Const floats indicate the volume adjustments the user can make with volume list
 static const float VLVOLUME = 0.1f;
 static const float LVOLUME = 0.25f;
 static const float AVOLUME = 0.5f;
 static const float HVOLUME = 0.75f;
 static const float VHVOLUME = 1.0f;
 
+//--------------------------------------------------------------------------------
+// Default Constructor.
+//--------------------------------------------------------------------------------
 Window::Window()
 {
 	// Initializes the Audio Manager pointer
 	m_pAudioManager = new AudioManager();
 
-	// Boots up the FMOD system
+	// Calls the AudioManager's create function to initialize FMOD 
 	m_pAudioManager->Create();
 
+	// Initializes the Box and Button size as ImVec2
 	m_v2BoxSize = ImVec2(90, 90);
 	m_v2ButtonSize = ImVec2(50, 20);
 
+	// Initializes a "new" array of chars with a default string
 	m_chBuf = new char[100]{ "Filename Here with File Extension" };
+
+	// Initializes a "new" array of chars which is the file directory for audio
 	m_chFileDir = new char[32]{ "../bin/audio/" };
 
+	// Sets all bools to false when class is first called
 	m_bMuted = false;
 	m_bLoad = false;
 	m_bLoaded = false;
 	m_bPlaying = false;
 
+	// For loop runs for the array of bools
 	for (int i = 0; i < 5; ++i)
 	{
+		// Sets the middle choice in the pitch and volume list to be true
 		if (i == 2)
 		{
 			m_abPitch[2] = true;
 			m_abVol[2] = true;
 		}
+
+		// Sets every other option in pitch and volume list to bo false
 		else
 		{
 			m_abPitch[i] = false;
@@ -48,16 +63,30 @@ Window::Window()
 	}
 }
 
+//--------------------------------------------------------------------------------
+// Default Destructor.
+//--------------------------------------------------------------------------------
 Window::~Window()
 {
+	// Calls AudioManager's Destroy function to destroy FMOD's values from the heap
 	m_pAudioManager->Destroy();
 
+	// Deletes all values from the Window classes' heap
 	delete m_pAudioManager;
 	delete m_chBuf;
+	delete m_chFileDir;
 }
 
+//--------------------------------------------------------------------------------
+// Updates all of the mechanics of the window every frame.
+//
+// Param:
+//		pFileName: An array of chars that identifies the window name.
+//		bOpen: A bool that checks if the window should open or not.
+//--------------------------------------------------------------------------------
 void Window::UpdateWindow(char* pFilename, bool bOpen)
 {
+	// Sets the Window size 
 	ImGui::SetNextWindowSize(ImVec2(900.0f, 500.0f));
 	ImGui::Begin(pFilename, &bOpen, ImGuiWindowFlags_NoResize);
 
@@ -85,20 +114,14 @@ void Window::UpdateWindow(char* pFilename, bool bOpen)
 	int verticalSpacing;
 	if (m_bLoad)
 	{
-		verticalSpacing = 9;
+		verticalSpacing = 54;
 		LoadSound();
 	}
 	else
 	{
-		verticalSpacing = 15;
+		verticalSpacing = 60;
 	}
 
-	for (int i = 0; i < verticalSpacing; ++i)
-	{
-		ImGui::Spacing();
-	}
-
-	verticalSpacing = 5;
 	for (int i = 0; i < verticalSpacing; ++i)
 	{
 		ImGui::Spacing();
@@ -215,6 +238,9 @@ void Window::UpdateWindow(char* pFilename, bool bOpen)
 	ImGui::End();
 }
 
+//--------------------------------------------------------------------------------
+// Loads the sound into the application.
+//--------------------------------------------------------------------------------
 void Window::LoadSound()
 {
 	ImGui::InputText("Directory", m_chBuf, 50);
@@ -239,6 +265,12 @@ void Window::LoadSound()
 	}
 }
 
+//--------------------------------------------------------------------------------
+// Allows a tool tip to be added to buttons.
+//
+// Param:
+//		pToolTip: An array of chars that indicates what the tool tip should say.
+//--------------------------------------------------------------------------------
 void Window::ToolTip(char* pToolTip)
 {
 	if (ImGui::IsItemHovered())
@@ -247,6 +279,9 @@ void Window::ToolTip(char* pToolTip)
 	}
 }
 
+//--------------------------------------------------------------------------------
+// Allows for the loaded in audio to be modified. 
+//--------------------------------------------------------------------------------
 void Window::AdjustSound()
 {
 	ImGui::Indent(270.0f);
