@@ -12,27 +12,27 @@ AudioEditorApp::~AudioEditorApp() {
 
 }
 
-bool AudioEditorApp::startup() 
+bool AudioEditorApp::startup()
 {
 	setBackgroundColour(0.1f, 0.1f, 0.1f, 1.0f);
 
-	firstWindow = new Window();
+	m_pWindow = new Window();
 
 	return true;
 }
 
-void AudioEditorApp::shutdown() 
+void AudioEditorApp::shutdown()
 {
-	delete firstWindow;
+	delete m_pWindow;
 }
 
-void AudioEditorApp::update(float deltaTime) 
+void AudioEditorApp::update(float fDeltaTime)
 {
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
 	// Opens up the ImGui window
-	firstWindow->UpdateWindow("New Project", true);
+	m_pWindow->UpdateWindow("New Project", true);
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -41,7 +41,7 @@ void AudioEditorApp::update(float deltaTime)
 	}
 }
 
-void AudioEditorApp::draw() 
+void AudioEditorApp::draw()
 {
 	// wipe the screen to the background colour
 	clearScreen();
