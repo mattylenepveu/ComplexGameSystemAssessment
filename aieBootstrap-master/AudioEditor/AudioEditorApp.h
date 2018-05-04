@@ -3,7 +3,7 @@
 // Include(s)
 #include "Application.h"
 #include "Renderer2D.h"
-#include "Window.h"
+#include <Window.h>
 
 //--------------------------------------------------------------------------------
 // AudioEditorApp class runs the application for the Editor to run in.
