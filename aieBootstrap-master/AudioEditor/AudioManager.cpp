@@ -8,14 +8,10 @@
 //--------------------------------------------------------------------------------
 AudioManager::AudioManager() 
 {
+	// Initializes playing and paused bools to false
 	m_bIsPlaying = false;
 	m_bIsPaused = false;
 }
-
-//--------------------------------------------------------------------------------
-// Default Destructor (Not Being Used).
-//--------------------------------------------------------------------------------
-AudioManager::~AudioManager() {}
 
 //--------------------------------------------------------------------------------
 // Acts as the AudioManager's constructor by initialising values.
@@ -25,27 +21,35 @@ AudioManager::~AudioManager() {}
 //--------------------------------------------------------------------------------
 bool AudioManager::Create()
 {
+	// Sets the FMOD system pointer to a null value rather than garbage memory
 	m_pSystem = NULL;
 
+	// Creates the FMOD System and stores any error result in FMOD result
 	result = FMOD::System_Create(&m_pSystem);
 
+	// Checks if any errors have occured
 	if (result != FMOD_OK)
 	{
+		// Prints the error to console and returns false for failing to startup
 		printf("FMOD error! (%d) %s\n", result);
 		return false;
 	}
 
+	// Initialize FMOD with 512 channels and stores any errors in FMOD result
 	result = m_pSystem->init(512, FMOD_INIT_NORMAL, 0);
 
+	// Creates a new Channel Group for the FMOD system
 	m_pSystem->createChannelGroup("MyChannelGroup", &m_pChannelGroup);
 
-	// Initialize FMOD with 512 channels
+	// Checks if any errors have occured
 	if (result != FMOD_OK)
 	{
+		// Prints the error to console and returns false for failing to startup
 		printf("FMOD error! (%d) %s\n", result);
 		return false;
 	}
 
+	// Returns true as AudioManager must have started up correctly
 	return true;
 }
 
@@ -54,6 +58,7 @@ bool AudioManager::Create()
 //--------------------------------------------------------------------------------
 void AudioManager::Destroy()
 {
+	// Calls release to release sound and closes FMOD system
 	m_pSound->release();
 	m_pSystem->close();
 }
@@ -82,9 +87,13 @@ void AudioManager::LoadAudio(const char* pAudioName)
 //--------------------------------------------------------------------------------
 void AudioManager::PauseAudio()
 {
+	// Checks if audio is currently playing
 	if (m_bIsPlaying)
 	{
+		// Sets paused to true via the channel
 		m_pChannel->setPaused(true);
+
+		// Sets playing bool to false and paused bool to true
 		m_bIsPlaying = false;
 		m_bIsPaused = true;
 	}
@@ -95,17 +104,25 @@ void AudioManager::PauseAudio()
 //--------------------------------------------------------------------------------
 void AudioManager::PlayAudio()
 {
+	// Checks if audio isn't playing
 	if (!m_bIsPlaying)
 	{
+		// Checks if the audio is paused
 		if (m_bIsPaused)
 		{
+			// Sets paused to false via the channel
 			m_pChannel->setPaused(false);
+
+			// Sets playing bool to true and paused bool to false
 			m_bIsPlaying = true;
 			m_bIsPaused = false;
 		}
 		else
 		{
+			// If audio isn't paused, system plays the sound and stores errors in result
 			result = m_pSystem->playSound(m_pSound, m_pChannelGroup, false, &m_pChannel);
+
+			// Sets playing bool to be true
 			m_bIsPlaying = true;  
 		}
 	}
@@ -116,13 +133,17 @@ void AudioManager::PlayAudio()
 //--------------------------------------------------------------------------------
 void AudioManager::StopAudio()
 {
+	// Checks if any audio is playing
 	if (m_bIsPlaying)
 	{
-		result = m_pSystem->recordStop(0);
+		// Sets paused to be true via the channel
 		m_pChannel->setPaused(true);
+
+		// Sets is playing bool to be false
 		m_bIsPlaying = false;
 	}
 
+	// If audio is paused, then set paused bool to false
 	if (m_bIsPaused)
 	{
 		m_bIsPaused = false;
@@ -137,6 +158,7 @@ void AudioManager::StopAudio()
 //--------------------------------------------------------------------------------
 void AudioManager::AdjustPitch(float fPitch)
 {
+	// Calls set pitch function from the Channel Group passing in the new pitch
 	m_pChannelGroup->setPitch(fPitch);
 }
 
@@ -148,6 +170,7 @@ void AudioManager::AdjustPitch(float fPitch)
 //--------------------------------------------------------------------------------
 void AudioManager::AdjustVolume(float fVolume)
 {
+	// Calls set volume function from the Channel Group passing in the new volume
 	m_pChannelGroup->setVolume(fVolume);
 }
 

@@ -26,9 +26,8 @@ public:
 	//
 	// Param:
 	//		pFileName: An array of chars that identifies the window name.
-	//		bOpen: A bool that checks if the window should open or not.
 	//--------------------------------------------------------------------------------
-	void UpdateWindow(char* pFilename, bool bOpen);
+	void UpdateWindow(char* pFilename);
 
 	//--------------------------------------------------------------------------------
 	// Loads the sound into the application.
@@ -81,4 +80,7 @@ private:
 
 	// Array of bools stores if drop down volume list options are selected
 	bool m_abVol[5];
+
+	// Int used to set spacing vertically
+	int verticalSpacing;
 };

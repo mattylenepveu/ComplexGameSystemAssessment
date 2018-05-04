@@ -15,20 +15,15 @@ class AudioEditorApp : public aie::Application
 {
 public:
 	//--------------------------------------------------------------------------------
-	// Default Constructor (Not Being Used).
+	// Default Constructor (Not being used but required from base class).
 	//--------------------------------------------------------------------------------
 	AudioEditorApp();
 
 	//--------------------------------------------------------------------------------
-	// Default Constructor (Not Being Used).
-	//--------------------------------------------------------------------------------
-	virtual ~AudioEditorApp();
-
-	//--------------------------------------------------------------------------------
-	// Acts as the AudioEditorApp's constructor by initialising values.
+	// Updates the application every frame it runs for.
 	//
-	// Return:
-	//		Returns a bool indicating if everything has been created properly.
+	// Param:
+	//		fDeltaTime: A float representing real time for use in physics equations.
 	//--------------------------------------------------------------------------------
 	virtual bool startup();
 
@@ -40,7 +35,7 @@ public:
 	//--------------------------------------------------------------------------------
 	// Updates the application every frame it runs for.
 	//
-	// Param:
+	// Param (Not being used but required from base class):
 	//		Returns a bool indicating if everything has been created properly.
 	//--------------------------------------------------------------------------------
 	virtual void update(float fDeltaTime);

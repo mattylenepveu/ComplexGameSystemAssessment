@@ -6,14 +6,9 @@
 #include "Imgui.h"
 
 //--------------------------------------------------------------------------------
-// Default Constructor (Not Being Used).
+// Default Constructor (Not being used but required from base class).
 //--------------------------------------------------------------------------------
 AudioEditorApp::AudioEditorApp() {}
-
-//--------------------------------------------------------------------------------
-// Default Constructor (Not Being Used).
-//--------------------------------------------------------------------------------
-AudioEditorApp::~AudioEditorApp() {}
 
 //--------------------------------------------------------------------------------
 // Acts as the AudioEditorApp's constructor by initialising values.
@@ -23,10 +18,13 @@ AudioEditorApp::~AudioEditorApp() {}
 //--------------------------------------------------------------------------------
 bool AudioEditorApp::startup()
 {
+	// Sets the background colour of the application to be a very dark grey
 	setBackgroundColour(0.1f, 0.1f, 0.1f, 1.0f);
 
+	// Creates a "new" Window for the Application class to use
 	m_pWindow = new Window();
 
+	// Returns true once the application has started up
 	return true;
 }
 
@@ -35,28 +33,20 @@ bool AudioEditorApp::startup()
 //--------------------------------------------------------------------------------
 void AudioEditorApp::shutdown()
 {
+	// Deletes the Window pointer from the classes' heap
 	delete m_pWindow;
 }
 
 //--------------------------------------------------------------------------------
 // Updates the application every frame it runs for.
 //
-// Param:
-//		Returns a bool indicating if everything has been created properly.
+// Param (Not being used but required from base class):
+//		fDeltaTime: A float representing real time for use in physics equations.
 //--------------------------------------------------------------------------------
 void AudioEditorApp::update(float fDeltaTime)
 {
-	// input example
-	aie::Input* input = aie::Input::getInstance();
-
-	// Opens up the ImGui window
-	m_pWindow->UpdateWindow("New Project", true);
-
-	// exit the application
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-	{
-		quit();
-	}
+	// Opens up the ImGui window with the title "Audio Editor"
+	m_pWindow->UpdateWindow("New Project");
 }
 
 //--------------------------------------------------------------------------------
@@ -64,6 +54,6 @@ void AudioEditorApp::update(float fDeltaTime)
 //--------------------------------------------------------------------------------
 void AudioEditorApp::draw()
 {
-	// wipe the screen to the background colour
+	// Wipes the screen to the background colour
 	clearScreen();
 }
