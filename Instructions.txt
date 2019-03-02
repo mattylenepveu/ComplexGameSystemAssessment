@@ -1,0 +1,6 @@
+Instructions to work Audio Editor (from Release Executable):
+1. Click "File" and then "Load Audio"
+2. Type in Audio/songname in the text box with the file extention (eg. Audio/mywish.mp3) and click "Load"
+3. If done correctly, clicking "Play" should play the audio from that file
+
+NOTE: If you wish to edit your own audio, all you need to do is make sure that the audio is placed in the "Audio" folder in "Release". 
