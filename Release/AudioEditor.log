@@ -1,0 +1,22 @@
+﻿bootstrap.lib(context.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
+LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Generating code
+  319 of 1297 functions (24.6%) were compiled, the rest were copied from previous compilation.
+    3 functions were new in current compilation
+    37 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+bootstrap.lib(window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(window.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(win32_window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(win32_window.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(win32_tls.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(win32_tls.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(win32_time.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(win32_time.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(win32_monitor.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(win32_joystick.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(win32_joystick.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(win32_init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(win32_init.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(wgl_context.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(vulkan.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(vulkan.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(monitor.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(monitor.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(input.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(input.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(init.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(egl_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(egl_context.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+bootstrap.lib(context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'bootstrap.lib(context.obj)' or at 'F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\glfw3.pdb'; linking object as if no debug info
+  AudioEditor.vcxproj -> F:\AudioEditor\aieBootstrap-master\temp\AudioEditor\x64\Release\AudioEditor.exe
